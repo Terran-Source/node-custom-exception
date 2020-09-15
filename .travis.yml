@@ -1,0 +1,43 @@
+os: linux
+dist: bionic
+language: node_js
+node_js:
+  - 10.12
+  - lts/dubnium
+  - lts/erbium
+  - lts/*
+  - node
+before_install:
+  # latest npm, gulp
+  - npm i -g gulp-cli # npm yarn
+  ## latest yarn
+  # - curl -o- -L https://yarnpkg.com/install.sh | bash # -s -- --version [version]
+  # - export PATH="$HOME/.yarn/bin:$PATH"
+cache:
+  yarn: true
+install:
+  - yarn install
+before_script:
+  - npm test
+  - gulp
+  - cd dist
+  - yarn install
+script:
+  - npm test
+  - cd ..
+before_deploy:
+  - gulp preBuild
+  - cd dist
+deploy:
+  edge: true
+  cleanup: false
+  on:
+    branch: master
+    tags: true
+    condition: $TRAVIS_NODE_VERSION = 10.12
+  tag: latest
+  provider: npm
+  email:
+    secure: DXHMiS1mF9S1ZqQvPP3A550ZkfE8tjlCmxZGqc7X4IcYk5UwARPt5vKbC57SD/68QdZN0VxwXJSCrL74HDBSZeqQeffGmjpud/Dc4wJxXFg7w2jp1MlqG0kXObH+J/WtKHAUbbAHW8J9OEWcDgeyOig9QoPl5Wc8faJcrdMY++vbwgxEs97lWtLpu27OW5KaDF641tpQ7K56teywj6gcpF9uv8wlhV983U7GZlfuYtnujeenl8v4Gvp/ZWpI7dlXuN3AfxW7VoJTzcVjzkJb9Q+aCNkE4FdTkqN+bo0iAvS2tnfYvR1N8BNUYIP/wGjcW9rYsdV1xllwVbIXpEEYgfMFnB51NLildO5Roldfy0wwujF3sgIV8OV9FCVHOHHhJGXDNpMudzZ82NnVfajTqVjD0nwwYjQtg19PF4h3iLdgVg4FoBCKt9HDzyQw05Y5zt2X0lJdzRdwVgzJniI4NRDIJuAyaDJtgtIS1YvZSHegHqMaLxATEbyYov40MOGVwwusFrnWNevi+bqP/UgMebGd1lil2h0DO5nOKKL84uIn6o3Kqn1Y0HfzxK5T+yYoYJLD2DSwUUGBjHj4JvMJnjSuPVGfLTKzlkQnvrSl7fBhBonQkmsz7IBgokglBfPX91AqDKJIuqzC/6EC32d+R4qZpibQjCagfZF2eHbJ7V0=
+  api_key:
+    secure: K8pkrx/yg9wYF1QZbgs5tWOw2USSc3krxsbdKb3mUE7mZzbBgKgmanc0ndCYOBxeIqd7qusQp21Hp5qRzrhJnb0xneqaNpxFNOShpZhS33DjpqJghljI9gC6blMdQ4nF81kiN+7axio8LS5VIB6KSb4fitVxoTmTcunp0TM6N6eYeFkPWgd9LGXRIbeooDLHnrLD92Z14M0AZSokFNaxuTl0M8vkHn0okyU2fCQFjKVSIDfLRd1CvCpiMCf/h95SmziME7JugRUPR8rHWnfA3JII5tLWNzxjFpEBi48gbr2E26fZDmdhA+A//rc7c9xB/+ukximPI4XjsgzCFhEKYKVNHLI5J8iMFH37Cl/WegWml2AnCkGnczTiqADKuxmMrdYm3MX74yyRZvrm+wEYxCjxg0nCGmcRQM0Dn38UsYLDdPWc0Zr8iECxB56d5ErmmWiKT5To02sakb0TGQxxn7Isjpo3kXsJXQ/3ChRxMOQJkawi9KeoXNkH7UWncf7w2JPQQoPuG2/mCP8ac6DFPXUw5Lxmfnyc3AoC4UbFYFDbP/nvA3drsoeZJ7YgXVlxP5+TmKkDFCtlrry+fa6PprdVvELz/ZQ0Z4rhj5U2c12JT1ngHaP8PXjiTa9/hK5SRA33NckPel9fIvvAg24gXwZzfs/KaKLzmscyxLKDq60=
