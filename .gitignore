@@ -104,3 +104,4 @@ Thumbs.db
 dist/
 www/
 .vs/
+.[tT]emp/

@@ -104,6 +104,7 @@ Thumbs.db
 dist/
 www/
 .vs/
+.[tT]emp/
 
 
 # npmignore - content above this line is automatically generated and modifications may be omitted
