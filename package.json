@@ -1,6 +1,6 @@
 {
   "name": "custom-exception",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Custom Exceptions for node",
   "main": "app.js",
   "directories": {
